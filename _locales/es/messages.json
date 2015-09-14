@@ -54,7 +54,7 @@
         "description": "The checkout page title"
     },
     "pageCheckoutInstructions": {
-        "message": "<p>Explore el objeto o elija una opci&oacute;n a continuaci&oacute;n.</p>",
+        "message": "<p>Elija su men&uacute;.</p>",
         "description": "Instruct user to scan their items or select an option"
     },
     "lookupItemTitle": {
