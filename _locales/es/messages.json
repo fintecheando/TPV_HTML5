@@ -20,7 +20,7 @@
         "description": "Cancels the current transaction and returns to the main menu"
     },
     "returnCheckout": {
-        "message": "Volver a la Comprobaci&oacute;n",
+        "message": "Volver a la Ord&eacute;n",
         "description": "Returns to the checkout screen"
     },
     "returnPaymentTypes": {
@@ -172,11 +172,11 @@
         "description": "Continue button"
     },
     "overlayReturn": {
-        "message": "Retorno",
+        "message": "Regresar",
         "description": "Return to the checkout page"
     },
     "overlayConfirm": {
-        "message": "Confirmar Cancelar",
+        "message": "Cancelar",
         "description": "Confirm the cancellation of the transaction"
     },
     
@@ -201,7 +201,7 @@
         "description": "Instruct the user to wait for the scale to finish weighing"
     },
     "overlayCancelTransaction": {
-        "message": "Est&aacute; seguro que desea cancelar la transacci&oacute;n?",
+        "message": "¿Est&aacute; seguro que desea cancelar la ord&eacute;n?",
         "description": "Ask the user if they are sure they wish to cancel the transaction"
     }
 }
