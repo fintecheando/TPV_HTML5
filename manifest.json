@@ -8,7 +8,7 @@
     "name": "Grupo Lozcar",
     "version": "1.4.0",
     
-    "default_locale": "en",
+    "default_locale": "es",
     "description": "Point-of-Sale checkout kiosk app for Chrome",
     "icons": { 
         "16": "images/icon_16.png", 
