@@ -37,10 +37,10 @@ main.initialize = function() {
     stillthere.timeoutStillThere = 120000; //2 minutes
     stillthere.timeout = 150000; //2.5 minutes
     stillthere.addEventListener(stillthere.Event.STILL_THERE, function() {
-        stillthere.overlay.find('.message').html('Are you still there?');
+        stillthere.overlay.find('.message').html('Desea Continuar Ordenando?');
     });
     stillthere.addEventListener(stillthere.Event.TIMEOUT, function() {
-        stillthere.overlay.find('.message').html('Touch to Begin');
+        stillthere.overlay.find('.message').html('Toque para Continuar');
         main.start();
     });
     

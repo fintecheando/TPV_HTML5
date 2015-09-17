@@ -37,7 +37,7 @@
         "description": "The header of the receipt items"
     },
     "subtotalTitle": {
-        "message": "Total Parcial",
+        "message": "Subtotal",
         "description": "The subtotal of all the receipt items"
     },
     "taxTitle": {
