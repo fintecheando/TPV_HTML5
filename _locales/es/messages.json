@@ -28,7 +28,7 @@
         "description": "Button to return to the payment options page"
     },
     "touchToType": {
-        "message": "Tocar a Tipo",
+        "message": "Toque para Buscar Producto",
         "description": "Placeholder on input boxes that instruct the user to touch to being typing"
     },
     
