@@ -120,6 +120,10 @@ main.initialize = function() {
         flipper.openPage('#page-payment');
     });
     
+    $('#page-payment-options .payment-method.cash').click(function() {
+        flipper.openPage('#page-payment-id-nip');
+    });
+    
     //Page-Payment
     $('#page-payment').on(flipper.Event.BEFORE_OPEN, function() {
         swiper.scanning = true;
@@ -128,6 +132,15 @@ main.initialize = function() {
         swiper.scanning = false;
     });
     $('#page-payment').on(swiper.EVENT, main.paymentSwiper);
+    
+    //Page-Payment ID & NIP
+    $('#page-payment-id-nip').on(flipper.Event.BEFORE_OPEN, function() {
+        swiper.scanning = true;
+    });
+    $('#page-payment-id-nip').on(flipper.Event.AFTER_CLOSE, function() {
+        swiper.scanning = false;
+    });
+    $('#page-payment-id-nip').on(swiper.EVENT, main.paymentSwiper);
     
     //Page-Complete
     $('#page-complete').on(flipper.Event.BEFORE_OPEN, function() {

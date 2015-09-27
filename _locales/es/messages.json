@@ -153,6 +153,10 @@
         "message": "Presente su credencial en el lector para realizar el Pago",
         "description": "Instruct the user to use the PIN pad to complete their transaction"
     },
+    "pagePaymentNIPInstructions": {
+        "message": "Digite su NIP para realizar el Pago",
+        "description": "Instruct the user to use the PIN pad to complete their transaction"
+    },
     
     "pageCompleteThanks": {
         "message": "Gracias por comprar con nosotros!",

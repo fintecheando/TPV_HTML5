@@ -300,7 +300,8 @@ button{
 /*receipt and common classes*/
 #page-checkout .page-container .content,
 #page-payment-options .page-container .content,
-#page-payment .page-container .content
+#page-payment .page-container .content,
+#page-payment-id-nip .page-container .content
 {
     display:flex;
     padding:1em;
@@ -308,7 +309,8 @@ button{
 
 #page-checkout .page-container .page-actions-container,
 #page-payment-options .page-container .page-actions-container,
-#page-payment .page-container .page-actions-container
+#page-payment .page-container .page-actions-container,
+#page-payment-id-nip .page-container .page-actions-container
 {
     display:flex;
     flex-direction:column;
@@ -901,6 +903,41 @@ button{
     -webkit-transition-duration: 0.2s;
     -webkit-transform: scale(0.95);
 }
+
+/*page-payment-id-nip*/
+#page-payment-id-nip .page-actions-container
+{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+}
+#page-payment-id-nip .instructions
+{
+    font-size:2em;
+}
+#page-payment-id-nip .loading-container
+{
+    position:relative;
+    width:100%;
+    height:100px;
+}
+#page-payment-id-nip .return-payment-methods
+{
+    font-size: 3em;
+    background-color: #ABABAB;
+    border: none;
+    color: #fff;
+    border-radius: 2em;
+    padding: .5em 1em;
+    outline:none;
+}
+#page-payment-id-nip  .return-payment-methods:active
+{
+    -webkit-transition-duration: 0.2s;
+    -webkit-transform: scale(0.95);
+}
+
 
 /*page-complete*/
 #page-complete .page-container .content

@@ -153,6 +153,10 @@
         "message": "Use the PIN pad to complete your transaction",
         "description": "Instruct the user to use the PIN pad to complete their transaction"
     },
+    "pagePaymentNIPInstructions": {
+        "message": "Use the PIN pad to complete your transaction",
+        "description": "Type your PIN pad to complete the transaction"
+    },
     
     "pageCompleteThanks": {
         "message": "Thank you for shopping with us!",

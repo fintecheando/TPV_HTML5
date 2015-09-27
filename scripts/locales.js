@@ -65,6 +65,10 @@ locales.setLanguage = function(locale) {
     $('#page-payment .page-title').html(locale.pagePaymentTitle.message);
     $('#page-payment .instructions').html(locale.pagePaymentInstructions.message);
 
+    $('#page-payment-id-nip .page-title').html(locale.pagePaymentTitle.message);
+    $('#page-payment-id-nip .instructions').html(locale.pagePaymentNIPInstructions.message);
+
+
     $('#page-complete .complete-thanks').html(locale.pageCompleteThanks.message);
     $('#page-complete .complete-remove-bags').html(locale.pageCompleteBags.message);
 
