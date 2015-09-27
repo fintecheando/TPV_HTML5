@@ -78,12 +78,12 @@ main.initialize = function() {
     
     //Page-Checkout
     $('#page-checkout').on(flipper.Event.BEFORE_OPEN, function() {
-        scanner.scanning = true;
+        //scanner.scanning = true;
         $('#page-checkout #item-search-query').val('');
         main.foodSearch();
     });
     $('#page-checkout').on(flipper.Event.AFTER_CLOSE, function() {
-        scanner.scanning = false;
+        //scanner.scanning = false;
     });
     $('#page-checkout').on(scanner.EVENT, main.checkoutScanner);
     $('#page-checkout #lookup-item').click(function() {
@@ -101,7 +101,7 @@ main.initialize = function() {
          
     $('#page-checkout').on('beforesearch', main.lookupFoodBeforeSearch);
     $('#page-checkout').on('aftersearch', main.lookupFoodAfterSearch);
-    $('#page-checkout #item-search-query').keyup(main.lookupStartProgress);
+    $('#page-checkout #item-search-query').keyup(main.lookupFoodStartProgress);
     
     //Page-Lookup
     $('#page-lookup').on(flipper.Event.BEFORE_OPEN, function() {
@@ -420,13 +420,13 @@ main.startSpanish = function() {
     flipper.openPage('#page-checkout');
 };
 /**
- * Start the app with the English locale and add the scanned item.
+ * Start the app with the Spanish locale and add the scanned item.
  * @param {Event} e 
  * @param {string} sku item SKU to add
  * @returns {undefined}
  */
 main.startScanner = function(e, sku) {
-    main.startEnglish();
+    main.startSpanish();
     main.addItemToReceipt(sku);
 };
 
@@ -536,6 +536,7 @@ main.lookupItemClicked = function() {
     flipper.openPage('#page-checkout');    
     main.addItemToReceipt(sku);
 };
+
 /**
  * Starts a progress bar whenever a key is pressed.
  * <p>
@@ -570,6 +571,44 @@ main.lookupUpdateProgress = function(value) {
         clearInterval(main.intervalId);
         progress.attr('value', 0);
         var searchQuery = $('#page-lookup #item-search-query').val();
+        main.productSearch(searchQuery);
+    }
+};
+
+/**
+ * Starts a progress bar whenever a key is pressed.
+ * <p>
+ * This method resets the progress bar. When the progress bar is finished 
+ * (the user has not pressed any keys for a short amount of time), the 
+ * user's input will then be sent to search for products.
+ * @returns {undefined}
+ */
+main.lookupFoodStartProgress = function() {
+    clearInterval(main.intervalId);
+    var i = 0;
+    main.intervalId = setInterval(function(){
+        main.lookupFoodUpdateProgress(i);
+        i++;
+    }, 1);
+};
+/**
+ * Update the lookup progress bar with the given value.
+ * <p>
+ * Once the progress bar has reached its max value, the user's input will 
+ * be passed to main.productSearch().
+ * @param {number} value the value to set the progress bar to
+ * @returns {undefined}
+ */
+main.lookupFoodUpdateProgress = function(value) {
+    var progress = $('#page-checkout #search-timer-progress');
+    
+    if (value < progress.attr('max')) {
+        progress.attr('value', value);
+    }
+    else {
+        clearInterval(main.intervalId);
+        progress.attr('value', 0);
+        var searchQuery = $('#page-checkout #item-search-query').val();
         main.productSearch(searchQuery);
     }
 };
