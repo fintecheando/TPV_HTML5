@@ -82,7 +82,7 @@
         "description": "Description for the Type In SKU button"
     },
     "payNow": {
-        "message": "Pague ahora",
+        "message": "Pagar",
         "description": "Starts the payment process"
     },
     
@@ -96,7 +96,7 @@
     },
     
     "pagePaymentOptionsTitle": {
-        "message": "M&eacute;todo de Pago",
+        "message": "Confirmar Orden",
         "description": "Title for the payment method page"
     },
     "pagePaymentOptionsInstructions": {
@@ -104,19 +104,19 @@
         "description": "Instruct the user to choose a payment option"
     },
     "pagePaymentCard": {
-        "message": "Tarjeta",
+        "message": "Credencial",
         "description": "The card payment option"
     },
     "pagePaymentCardDescription": {
-        "message": "de Cr&eacute;dito / D&eacutebito",
+        "message": "Empleado/Contratista",
         "description": "The card payment description"
     },
     "pagePaymentCash": {
-        "message": "Efectivo",
+        "message": "NIP",
         "description": "The cash payment option"
     },
     "pagePaymentCashDescription": {
-        "message": "Billetes y Monedas",
+        "message": "ID Empleado y NIP",
         "description": "The cash payment description"
     },
     "pagePaymentCheck": {
@@ -150,7 +150,7 @@
         "description": "Title of the payment page"
     },
     "pagePaymentInstructions": {
-        "message": "Use el teclado de PIN para completar la transacci&oacute;n",
+        "message": "Presente su credencial en el lector para realizar el Pago",
         "description": "Instruct the user to use the PIN pad to complete their transaction"
     },
     

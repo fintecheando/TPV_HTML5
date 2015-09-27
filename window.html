@@ -86,32 +86,17 @@
                             </div>
                         </div>
                         <div class="payment-options">
-                            <button id="pay-now">Pay Now</button>
+                            <button id="pay-now">Pay Now</button>                            
                         </div>
                     </div>
-                    <div class="page-actions-container">
-                        <div class="helper-images">
+                    <div class="page-actions-container">                        
+                        
+                    <div class="content">
+                        <div class="search-controls">                        
+                            <progress id="search-timer-progress" value="0" max="200"></progress>
                         </div>
-                        <div class="instructions">
-                            <p>Scan an item, or choose an option below</p>
-                        </div>
-                        <div class="checkout-options">
-                            <button id="lookup-item" class="checkout-option">
-                                <img class="icon" src="images/lookup-item.png" width="100" height="100" />
-                                <div class="title">Lookup Item</div>
-                                <div class="description">Browse through our products and find an item by name.</div>
-                            </button>
-                            <button id="large-item" class="checkout-option">
-                                <img class="icon" src="images/large-item.png" width="100" height="100" />
-                                <div class="title">Large Item</div>
-                                <div class="description">Call an attendant to scan a large or heavy item in your cart.</div>
-                            </button>
-                            <button id="type-in-sku" class="checkout-option">
-                                <img class="icon" src="images/enter-sku.png" width="100" height="100" />
-                                <div class="title">Type in SKU</div>
-                                <div class="description">Add an item using the products SKU number.</div>
-                            </button>
-                        </div>
+                        <div class="search-results"></div>
+                    </div>
                         
                     </div>
                 </div>
@@ -132,6 +117,17 @@
                     <span class="store-name">I/0 Mart</span>
                     <span class="page-title">Product Search</span>
                 </header>
+                
+                <div class="content">
+                    <div class="search-controls">
+                        <div class="instructions">
+                            <p>Use the on-screen keyboard to find a product by searching for the product name.</p>
+                        </div>
+                        <input type="text" id="item-search-query" placeholder="Touch to Type" />
+                        <progress id="search-timer-progress" value="0" max="200"></progress>
+                    </div>
+                    <div class="search-results"></div>
+                </div>
                 <footer>
                     <button class="call-attendant">
                         <img src="images/call-attendant.png" width="25" height="25" /><span class="title">Call Attendant</span>
@@ -143,16 +139,6 @@
                         <img src="images/cancel.png" width="25" height="25" /><span class="title">Cancel Transaction</span>
                     </button>
                 </footer>
-                <div class="content">
-                    <div class="search-controls">
-                        <div class="instructions">
-                            <p>Use the on-screen keyboard to find a product by searching for the product name.</p>
-                        </div>
-                        <input type="text" id="item-search-query" placeholder="Touch to Type" />
-                        <progress id="search-timer-progress" value="0" max="200"></progress>
-                    </div>
-                    <div class="search-results"></div>
-                </div>
             </div>
         </div>
         
@@ -193,21 +179,11 @@
                                 <div class="title">Card</div>
                                 <div class="description">Credit/Debit</div>
                             </button>
-                            <button class="payment-method cash invalid">
+                            <button class="payment-method cash">
                                 <img class="icon" src="images/cash.png" width="100" height="100" />
                                 <div class="title">Cash</div>
                                 <div class="description">Bills and Coins</div>
-                            </button>
-                            <button class="payment-method check invalid">
-                                <img class="icon" src="images/checks.png" width="100" height="100" />
-                                <div class="title">Check</div>
-                                <div class="description">Paper or Electronic</div>
-                            </button>
-                            <button class="payment-method other invalid">
-                                <img class="icon" src="images/other.png" width="100" height="100" />
-                                <div class="title">Other</div>
-                                <div class="description">Gift Card, WIC, etc...</div>
-                            </button>
+                            </button>                            
                         </div>
                     </div>
                 </div>
@@ -295,10 +271,7 @@
                         <button class="return-payment-methods">Back to Payment Types</button>
                     </div>
                 </div>
-                <footer>
-                    <button class="simulate card">
-                        <span class="title">Simulate Card Swipe</span>
-                    </button>
+                <footer>                    
                     <button class="call-attendant">
                         <img src="images/call-attendant.png" width="25" height="25" /><span class="title">Call Attendant</span>
                     </button>

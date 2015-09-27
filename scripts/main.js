@@ -34,8 +34,8 @@ main.initialize = function() {
     data.initialize();
     
     //Setup StillThere
-    stillthere.timeoutStillThere = 120000; //2 minutes
-    stillthere.timeout = 150000; //2.5 minutes
+    stillthere.timeoutStillThere = 60000; //2 minutes
+    stillthere.timeout = 65000; //2.5 minutes
     stillthere.addEventListener(stillthere.Event.STILL_THERE, function() {
         stillthere.overlay.find('.message').html('Desea Continuar Ordenando?');
     });
@@ -79,6 +79,8 @@ main.initialize = function() {
     //Page-Checkout
     $('#page-checkout').on(flipper.Event.BEFORE_OPEN, function() {
         scanner.scanning = true;
+        $('#page-checkout #item-search-query').val('');
+        main.foodSearch();
     });
     $('#page-checkout').on(flipper.Event.AFTER_CLOSE, function() {
         scanner.scanning = false;
@@ -96,6 +98,10 @@ main.initialize = function() {
     $('#page-checkout #pay-now').click(function() {
         flipper.openPage('#page-payment-options');
     });
+         
+    $('#page-checkout').on('beforesearch', main.lookupFoodBeforeSearch);
+    $('#page-checkout').on('aftersearch', main.lookupFoodAfterSearch);
+    $('#page-checkout #item-search-query').keyup(main.lookupStartProgress);
     
     //Page-Lookup
     $('#page-lookup').on(flipper.Event.BEFORE_OPEN, function() {
@@ -220,6 +226,56 @@ main.start = function() {
 main.showError = function(message) {
     $('#overlay-error .error').html(message);
     flipper.openOverlay('#overlay-error');
+};
+
+/**
+ * Searches for a product by the given query.
+ * <p>
+ * If the query is undefined, all products will be loaded.
+ * @param {string} query the product to search for, or undefined to display 
+ *      all products
+ * @returns {undefined}
+ */
+main.foodSearch = function(query) {
+    $('#page-checkout').trigger('beforesearch');
+    if(typeof query === 'undefined') {
+        //mock delay for loading animation
+        setTimeout(function() {
+            for (var i = 0; i < data.productsArray.length; i++) {
+                var product = data.productsArray[i];
+                var productElement = product.getSearchResult();
+                
+                if (i < 8) {
+                    productElement.addClass('search-result-animation-' + (i+1).toString());
+                }
+                
+                productElement.click(main.lookupItemClicked);
+                $('#page-checkout .search-results').append(productElement);
+            }
+            $('#page-checkout').trigger('aftersearch');
+        }, 2000);
+    }
+    else {
+        setTimeout(function() {
+            for (var i = 0; i < data.productsArray.length; i++) {
+                var product = data.productsArray[i];
+
+                var searchTerm = query.toLowerCase();
+                var matchTerm = product.name.toLowerCase();
+                if (matchTerm.indexOf(searchTerm) > -1) {
+                    var productElement = product.getSearchResult();
+
+                    if(i < 8) {
+                        productElement.addClass('search-result-animation-' + (i+1).toString());
+                    }
+
+                    productElement.click(main.lookupItemClicked);
+                    $('#page-checkout .search-results').append(productElement);
+                }
+            }
+            $('#page-checkout').trigger('aftersearch');
+        }, 2000);
+    }
 };
 /**
  * Searches for a product by the given query.
@@ -433,6 +489,44 @@ main.lookupAfterSearch = function() {
         $('#page-lookup .search-results .search-result').removeClass('search-result-animation-8');
     }, 1000);
 };
+
+/**
+ * Animates out the current search results for a new set of results.
+ * @returns {undefined}
+ */
+main.lookupFoodBeforeSearch = function() {
+    if ($('#page-checkout .search-results .search-result').length > 0) {
+        $('#page-checkout .search-results .search-result').addClass('search-result-animation-out');
+        setTimeout(function() {
+            $('#page-checkout .search-results').empty();
+            $('#modules .loading-animation').clone().appendTo('#page-checkout .search-results');
+        }, 1000);
+    }
+    else {
+        $('#page-checkout .search-results').empty();
+        $('#modules .loading-animation').clone().appendTo('#page-checkout .search-results');
+    }
+};
+/**
+ * Animates in the new search results.
+ * @returns {undefined}
+ */
+main.lookupFoodAfterSearch = function() {
+    $('#page-checkout .search-results .loading-animation').remove();
+    $('#page-checkout .search-results .search-result').addClass('search-result-animation-in');
+    setTimeout(function() {
+        $('#page-checkout .search-results .search-result').removeClass('search-result-animation-in');
+        $('#page-checkout .search-results .search-result').removeClass('search-result-animation-1');
+        $('#page-checkout .search-results .search-result').removeClass('search-result-animation-2');
+        $('#page-checkout .search-results .search-result').removeClass('search-result-animation-3');
+        $('#page-checkout .search-results .search-result').removeClass('search-result-animation-4');
+        $('#page-checkout .search-results .search-result').removeClass('search-result-animation-5');
+        $('#page-checkout .search-results .search-result').removeClass('search-result-animation-6');
+        $('#page-checkout .search-results .search-result').removeClass('search-result-animation-7');
+        $('#page-checkout .search-results .search-result').removeClass('search-result-animation-8');
+    }, 1000);
+};
+
 /**
  * Adds the search result item clicked on to the session's receipt.
  * @returns {undefined}
