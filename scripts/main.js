@@ -289,68 +289,60 @@ main.addItemToReceipt = function(sku) {
         return;
     }
     
-    if (product.weightPrice > 0) {
-        main.scaleActive = true;
-        scanner.scanning = false;
-        main.scaleItemRemoved();
-        setTimeout(function() {
-            //Allow for CSS transitions
-            flipper.openOverlay('#overlay-scale');
-        }, 1000);
-        
-        var attempts = 0;
-        var getWeight = function() {
-            if (!main.scaleActive) {
-                return;
-            }
-            scale.getWeightOunces(function(weight) {
-                if (weight && weight.amount > 0) {
-                    var receiptItem = new ReceiptItem(product);
-                    receiptItem.weight = weight.amount;
+   
+    main.session.receipt.addItem(sku);
+    var receipt = $('.receipt-container .receipt');
+    receipt.scrollTop(receipt.prop("scrollHeight"));
+    $('.receipt-container .receipt-totals .receipt-subtotal .amount').html(main.formatCurrency(main.session.receipt.getSubTotal()));
+    $('.receipt-container .receipt-totals .receipt-tax .amount').html(main.formatCurrency(main.session.receipt.getTaxes()));
+    $('.receipt-container .receipt-totals .receipt-total .amount').html(main.formatCurrency(main.session.receipt.getGrandTotal()));
 
-                    flipper.closeOverlay('#overlay-scale');
-                    scanner.scanning = true;
-                    if (main.scaleActive) {
-                        main.addItemToReceipt(receiptItem);
-                        main.scaleActive = false;
-                    }
-                }
-                else {
-                    attempts++;
-                    if (attempts < 5) {
-                        setTimeout(getWeight, 1000);
-                    }
-                    else {
-                        main.scaleActive = false;
-                        scanner.scanning = true;
-                        flipper.closeOverlay('#overlay-scale');
-                        //Allow for CSS transitions
-                        setTimeout(function() {
-                            main.showError('An item was not placed on the scale');
-                        }, 1000);
-                    }
-                }
-            });
-        };
-        setTimeout(getWeight, 1000);
+    if(main.session.receipt.recieptItems.length > 0)
+    {
+        $('#page-checkout #pay-now').addClass('active');
     }
-    else {
-        main.session.receipt.addItem(sku);
-        var receipt = $('.receipt-container .receipt');
-        receipt.scrollTop(receipt.prop("scrollHeight"));
-        $('.receipt-container .receipt-totals .receipt-subtotal .amount').html(main.formatCurrency(main.session.receipt.getSubTotal()));
-        $('.receipt-container .receipt-totals .receipt-tax .amount').html(main.formatCurrency(main.session.receipt.getTaxes()));
-        $('.receipt-container .receipt-totals .receipt-total .amount').html(main.formatCurrency(main.session.receipt.getGrandTotal()));
+    else
+    {
+        $('#page-checkout #pay-now').removeClass('active');
+    }
+   
+};
 
-        if(main.session.receipt.recieptItems.length > 0)
-        {
-            $('#page-checkout #pay-now').addClass('active');
-        }
-        else
-        {
-            $('#page-checkout #pay-now').removeClass('active');
+/**
+ * Removes an item to the current session's receipt.
+ * @param {string|Object} sku the item's SKU, or the ReceiptItem object to remove
+ * @returns {undefined}
+ */
+main.removeItemToReceipt = function(sku) {
+    var product = sku;
+    if (typeof sku === 'string') {
+        product = data.productsSku[sku];
+        if (typeof product === 'undefined') {
+            product = data.productsPlu[sku];
         }
     }
+    
+    if (typeof product === 'undefined') {
+        main.showError('Invalid product, please see an attendant for assistance');
+        return;
+    }
+    
+    main.session.receipt.addItem(sku);
+    var receipt = $('.receipt-container .receipt');
+    receipt.scrollTop(receipt.prop("scrollHeight"));
+    $('.receipt-container .receipt-totals .receipt-subtotal .amount').html(main.formatCurrency(main.session.receipt.getSubTotal()));
+    $('.receipt-container .receipt-totals .receipt-tax .amount').html(main.formatCurrency(main.session.receipt.getTaxes()));
+    $('.receipt-container .receipt-totals .receipt-total .amount').html(main.formatCurrency(main.session.receipt.getGrandTotal()));
+
+    if(main.session.receipt.recieptItems.length > 0)
+    {
+        $('#page-checkout #pay-now').addClass('active');
+    }
+    else
+    {
+        $('#page-checkout #pay-now').removeClass('active');
+    }
+    
 };
 
 /*******************************************************************************
