@@ -287,8 +287,7 @@ main.addItemToReceipt = function(sku) {
     if (typeof product === 'undefined') {
         main.showError('Invalid product, please see an attendant for assistance');
         return;
-    }
-    
+    }    
    
     main.session.receipt.addItem(sku);
     var receipt = $('.receipt-container .receipt');
