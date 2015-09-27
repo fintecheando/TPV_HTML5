@@ -339,6 +339,57 @@ main.productSearch = function(query) {
         }, 2000);
     }
 };
+
+/**
+ * Searches for a product by the given query.
+ * <p>
+ * If the query is undefined, all products will be loaded.
+ * @param {string} query the product to search for, or undefined to display 
+ *      all products
+ * @returns {undefined}
+ */
+main.cardSearch = function(query) {
+    $('#page-payment').trigger('beforesearch');
+    if(typeof query === 'undefined') {
+        //mock delay for loading animation
+        setTimeout(function() {
+            for (var i = 0; i < data.productsArray.length; i++) {
+                var product = data.productsArray[i];
+                var productElement = product.getSearchResult();
+                
+                if (i < 8) {
+                    productElement.addClass('search-result-animation-' + (i+1).toString());
+                }
+                
+                productElement.click(main.lookupItemClicked);
+                $('#page-payment .search-results').append(productElement);
+            }
+            $('#page-payment').trigger('aftersearch');
+        }, 2000);
+    }
+    else {
+        setTimeout(function() {
+            for (var i = 0; i < data.productsArray.length; i++) {
+                var product = data.productsArray[i];
+
+                var searchTerm = query.toLowerCase();
+                var matchTerm = product.name.toLowerCase();
+                if (matchTerm.indexOf(searchTerm) > -1) {
+                    var productElement = product.getSearchResult();
+
+                    if(i < 8) {
+                        productElement.addClass('search-result-animation-' + (i+1).toString());
+                    }
+
+                    productElement.click(main.lookupItemClicked);
+                    $('#page-lookup .search-results').append(productElement);
+                }
+            }
+            $('#page-lookup').trigger('aftersearch');
+        }, 2000);
+    }
+};
+
 /**
  * Adds an item to the current session's receipt.
  * @param {string|Object} sku the item's SKU, or the ReceiptItem object to add
@@ -622,6 +673,28 @@ main.lookupFoodUpdateProgress = function(value) {
         clearInterval(main.intervalId);
         progress.attr('value', 0);
         var searchQuery = $('#page-checkout #item-search-query').val();
+        main.productSearch(searchQuery);
+    }
+};
+
+/**
+ * Update the lookup progress bar with the given value.
+ * <p>
+ * Once the progress bar has reached its max value, the user's input will 
+ * be passed to main.productSearch().
+ * @param {number} value the value to set the progress bar to
+ * @returns {undefined}
+ */
+main.lookupCardUpdateProgress = function(value) {
+    var progress = $('#page-payment #search-timer-progress');
+    
+    if (value < progress.attr('max')) {
+        progress.attr('value', value);
+    }
+    else {
+        clearInterval(main.intervalId);
+        progress.attr('value', 0);
+        var searchQuery = $('#page-payment #card-search-query').val();
         main.productSearch(searchQuery);
     }
 };

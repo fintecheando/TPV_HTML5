@@ -888,6 +888,41 @@ button{
     width:100%;
     height:100px;
 }
+
+#page-payment #card-search-query
+{
+    width: 60%;
+    text-align: center;
+    outline-color: #878787;
+    border: solid 1px #878787;
+    padding: .2em;
+    font-size: 1.9em;
+    color: #666;
+    text-transform: uppercase;
+    font-family: 'open_sanscondensed_light';  
+    input:focus { 
+        background-color: blue;
+    }
+}
+
+#page-payment #search-timer-progress
+{
+    -webkit-appearance: none;
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+    height: 10px;
+}
+#page-payment #search-timer-progress::-webkit-progress-bar
+{
+    background-color:transparent;
+}
+#page-payment #search-timer-progress::-webkit-progress-value
+{
+    background-color:#878787;
+}
+
+
 #page-payment .return-payment-methods
 {
     font-size: 3em;
