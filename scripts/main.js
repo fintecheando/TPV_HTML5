@@ -428,9 +428,8 @@ main.addItemToReceipt = function(sku) {
 };
 
 /**
- * Removes an item to the current session's receipt.
- * @param {string|Object} sku the item's SKU, or the ReceiptItem object to remove
- * @returns {undefined}
+ * Remove the indicated item from the receipt data structure and the receipt container
+ * @param sku the product to remove
  */
 main.removeItemToReceipt = function(sku) {
     var product = sku;
@@ -440,19 +439,18 @@ main.removeItemToReceipt = function(sku) {
             product = data.productsPlu[sku];
         }
     }
-    
+
     if (typeof product === 'undefined') {
         main.showError('Invalid product, please see an attendant for assistance');
         return;
     }
-    
-    main.session.receipt.addItem(sku);
+
+    main.session.receipt.removeItem(product);
     var receipt = $('.receipt-container .receipt');
     receipt.scrollTop(receipt.prop("scrollHeight"));
     $('.receipt-container .receipt-totals .receipt-subtotal .amount').html(main.formatCurrency(main.session.receipt.getSubTotal()));
     $('.receipt-container .receipt-totals .receipt-tax .amount').html(main.formatCurrency(main.session.receipt.getTaxes()));
     $('.receipt-container .receipt-totals .receipt-total .amount').html(main.formatCurrency(main.session.receipt.getGrandTotal()));
-
     if(main.session.receipt.recieptItems.length > 0)
     {
         $('#page-checkout #pay-now').addClass('active');
@@ -461,7 +459,6 @@ main.removeItemToReceipt = function(sku) {
     {
         $('#page-checkout #pay-now').removeClass('active');
     }
-    
 };
 
 /*******************************************************************************

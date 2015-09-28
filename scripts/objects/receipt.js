@@ -40,6 +40,26 @@ function Receipt() {
         
         $('.receipt-container .receipt').append(receiptItem.getReceiptItemDiv());
     };
+
+    /**
+     * Remove item from the Receipt and deletes the div section appended to the container
+     * @param product
+     */
+    this.removeItem = function(product) {
+        var productId = product.sku != null ? product.sku : product.plu;
+        for (var i = 0; i < self.recieptItems.length; i++) {
+            var prod = self.recieptItems[i].product;
+            var prodId = prod.sku != null ? prod.sku : prod.plu;
+            if (prodId === productId) {
+                index = i;
+                break;
+            }
+        }
+        self.recieptItems.splice(index, index + 1);
+        $('.receipt-container .receipt #'+productId).empty();
+
+    };
+
     /**
      * Retrieves the sub total of this Receipt.
      * @returns {Number} Receipt sub total

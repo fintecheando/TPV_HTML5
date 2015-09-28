@@ -37,21 +37,35 @@ function ReceiptItem(product) {
         }        
         return total;
     };
-    
+
     /**
-     * Creates and returns a receipt item jQuery div selector for this 
+     * Creates and returns a receipt item jQuery div selector for this
      * ReceiptItem.
      * @returns {jQuery} receipt item jQuery div selector
      */
     this.getReceiptItemDiv = function() {
-        var div = $('<div/>').addClass('receipt-item')
-                .append($('<span/>').addClass('product-name').html(self.product.name));
+        var productId = self.product.sku != null ? self.product.sku : self.product.plu;
+
+        var div = $('<div/>').attr('id', productId).addClass('receipt-item');
+        var deleteIcon = $('<span/>').addClass('product-delete')
+            .html('<img class="icon" src="images/cancel.png" width="25" height="25" />');
+
+        deleteIcon.on("click",  function(){
+            main.removeItemToReceipt(productId);
+        });
+        div.append(deleteIcon);
+
+
+        div.append($('<span/>').addClass('product-name').html(self.product.name));
+
         var total = $('<span/>').addClass('product-total');
         if (self.weight > 0) {
             total.append($('<span/>').addClass('weight').html(self.weight + '' + self.product.weightUnit + ' '));
         }
         total.append($('<span/>').addClass('total').html(main.formatCurrency(self.getPrice())));
         div.append(total);
+
+
         return div;
     };
 }
