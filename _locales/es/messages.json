@@ -28,10 +28,9 @@
         "description": "Button to return to the payment options page"
     },
     "touchToType": {
-        "message": "Toque para Buscar Producto",
+        "message": "Empleado",
         "description": "Placeholder on input boxes that instruct the user to touch to being typing"
-    },
-    
+    },    
     "receiptHeader": {
         "message": "Mi Orden",
         "description": "The header of the receipt items"

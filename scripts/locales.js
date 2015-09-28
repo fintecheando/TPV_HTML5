@@ -39,10 +39,13 @@ locales.setLanguage = function(locale) {
 
     $('#lookup-item .title').html(locale.lookupItemTitle.message);
     $('#lookup-item .description').html(locale.lookupItemDescription.message);
+    
     $('#large-item .title').html(locale.largeItemTitle.message);
     $('#large-item .description').html(locale.largeItemDescription.message);
+    
     $('#type-in-sku .title').html(locale.typeInSkuTitle.message);
     $('#type-in-sku .description').html(locale.typeInSkuDescription.message);
+    
     $('#pay-now').html(locale.payNow.message);
 
     $('#page-lookup .page-title').html(locale.pageLookupTitle.message);

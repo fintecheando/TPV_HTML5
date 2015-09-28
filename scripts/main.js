@@ -133,6 +133,10 @@ main.initialize = function() {
     });
     $('#page-payment').on(swiper.EVENT, main.paymentSwiper);
     
+    $('#page-payment').on('beforesearch', main.lookupBeforeSearch);
+    $('#page-payment').on('aftersearch', main.lookupAfterSearch);
+    $('#page-payment #card-search-query').keyup(main.lookupEmployeeStartProgress);
+    
     //Page-Payment ID & NIP
     $('#page-payment-id-nip').on(flipper.Event.BEFORE_OPEN, function() {
         swiper.scanning = true;
@@ -675,6 +679,22 @@ main.lookupFoodUpdateProgress = function(value) {
 };
 
 /**
+ * Starts a progress bar whenever a key is pressed.
+ * <p>
+ * This method resets the progress bar. When the progress bar is finished 
+ * (the user has not pressed any keys for a short amount of time), the 
+ * user's input will then be sent to search for products.
+ * @returns {undefined}
+ */
+main.lookupEmployeeStartProgress = function() {
+    clearInterval(main.intervalId);
+    var i = 0;
+    main.intervalId = setInterval(function(){
+        main.lookupEmployeeUpdateProgress(i);
+        i++;
+    }, 1);
+};
+/**
  * Update the lookup progress bar with the given value.
  * <p>
  * Once the progress bar has reached its max value, the user's input will 
@@ -682,7 +702,7 @@ main.lookupFoodUpdateProgress = function(value) {
  * @param {number} value the value to set the progress bar to
  * @returns {undefined}
  */
-main.lookupCardUpdateProgress = function(value) {
+main.lookupEmployeeUpdateProgress = function(value) {
     var progress = $('#page-payment #search-timer-progress');
     
     if (value < progress.attr('max')) {
@@ -692,7 +712,7 @@ main.lookupCardUpdateProgress = function(value) {
         clearInterval(main.intervalId);
         progress.attr('value', 0);
         var searchQuery = $('#page-payment #card-search-query').val();
-        main.productSearch(searchQuery);
+        main.employeeSearch(searchQuery);
     }
 };
 
