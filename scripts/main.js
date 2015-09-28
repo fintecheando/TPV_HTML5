@@ -341,14 +341,14 @@ main.productSearch = function(query) {
 };
 
 /**
- * Searches for a product by the given query.
+ * Searches for a employee by the given query.
  * <p>
  * If the query is undefined, all products will be loaded.
  * @param {string} query the product to search for, or undefined to display 
  *      all products
  * @returns {undefined}
  */
-main.cardSearch = function(query) {
+main.employeeSearch = function(query) {
     $('#page-payment').trigger('beforesearch');
     if(typeof query === 'undefined') {
         //mock delay for loading animation
