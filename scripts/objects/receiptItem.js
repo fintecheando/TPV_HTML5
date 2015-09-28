@@ -7,7 +7,7 @@
  * @param {Product} product the Product to create this ReceiptItem from
  * @returns {ReceiptItem}
  */
-function ReceiptItem(product) {
+function ReceiptItem(product, consecutive) {
     //Protect this scope
     var self = this;
     
@@ -16,12 +16,21 @@ function ReceiptItem(product) {
      * @type Product
      */
     this.product = product;
+
+    /**
+     * The consecutive of the product in the receipt
+     * @type int
+     */
+    this.consecutive = consecutive;
+
     /**
      * The weight of the Product
      * @type Number
      */
     this.weight = 0;
-    
+
+
+
     /**
      * Retrieves the price of the ReceiptItem, accounting for the current 
      * weight and the Product's weight price, if any. 
@@ -44,7 +53,7 @@ function ReceiptItem(product) {
      * @returns {jQuery} receipt item jQuery div selector
      */
     this.getReceiptItemDiv = function() {
-        var productId = self.product.sku != null ? self.product.sku : self.product.plu;
+        var productId = self.getReceiptItemId();
 
         var div = $('<div/>').attr('id', productId).addClass('receipt-item');
         var deleteIcon = $('<span/>').addClass('product-delete')
@@ -68,4 +77,15 @@ function ReceiptItem(product) {
 
         return div;
     };
+
+    this.getProductId = function () {
+        return self.product.getCanonicalProductId();
+    }
+
+    /**
+     * The Receipt Item Id to identify the element in the ticket items.
+     */
+    this.getReceiptItemId = function () {
+        return self.product.getCanonicalProductId() + '-' + self.consecutive;
+    }
 }

@@ -429,23 +429,11 @@ main.addItemToReceipt = function(sku) {
 
 /**
  * Remove the indicated item from the receipt data structure and the receipt container
- * @param sku the product to remove
+ * @param sku the productId to remove
  */
 main.removeItemToReceipt = function(sku) {
-    var product = sku;
-    if (typeof sku === 'string') {
-        product = data.productsSku[sku];
-        if (typeof product === 'undefined') {
-            product = data.productsPlu[sku];
-        }
-    }
 
-    if (typeof product === 'undefined') {
-        main.showError('Invalid product, please see an attendant for assistance');
-        return;
-    }
-
-    main.session.receipt.removeItem(product);
+    main.session.receipt.removeItem(sku);
     var receipt = $('.receipt-container .receipt');
     receipt.scrollTop(receipt.prop("scrollHeight"));
     $('.receipt-container .receipt-totals .receipt-subtotal .amount').html(main.formatCurrency(main.session.receipt.getSubTotal()));

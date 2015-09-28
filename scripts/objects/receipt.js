@@ -33,24 +33,40 @@ function Receipt() {
             if (product === undefined) {
                 product = data.productsPlu[item];
             }
-            receiptItem = new ReceiptItem(product);
+            var consecutive = self.getItemConsecutive(product);
+            receiptItem = new ReceiptItem(product, consecutive);
         }
         
         self.recieptItems.push(receiptItem);
-        
-        $('.receipt-container .receipt').append(receiptItem.getReceiptItemDiv());
+
+        var receiptItemDiv = receiptItem.getReceiptItemDiv();
+
+        $('.receipt-container .receipt').append(receiptItemDiv);
+    };
+
+    /**
+     * Get the next consecutive of the element according to the current ticket elements in the array
+     * @param product
+     * @returns {number}
+     */
+    this.getItemConsecutive = function(product) {
+        var counter = 0;
+        for(var i = 0; i < self.recieptItems.length; i++) {
+            if (self.recieptItems[i].getProductId() === product.getCanonicalProductId()) {
+                counter++;
+            }
+        }
+        return ++counter;
     };
 
     /**
      * Remove item from the Receipt and deletes the div section appended to the container
      * @param product
      */
-    this.removeItem = function(product) {
-        var productId = product.sku != null ? product.sku : product.plu;
+    this.removeItem = function(productId) {
         for (var i = 0; i < self.recieptItems.length; i++) {
-            var prod = self.recieptItems[i].product;
-            var prodId = prod.sku != null ? prod.sku : prod.plu;
-            if (prodId === productId) {
+            var prod = self.recieptItems[i];
+            if (prod.getReceiptItemId() === productId) {
                 index = i;
                 break;
             }

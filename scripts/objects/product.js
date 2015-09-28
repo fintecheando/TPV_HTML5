@@ -88,4 +88,12 @@ function Product() {
         
         return div;
     };
+
+    /**
+     * Returns the product sky or plu id as appropiate
+     * @returns {*}
+     */
+    this.getCanonicalProductId = function() {
+        return self.sku != null ? self.sku : self.plu;
+    }
 }
