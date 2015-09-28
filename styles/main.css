@@ -351,6 +351,10 @@ button{
 .receipt-container .receipt .receipt-item .product-total {
     text-align: right;
 }
+.receipt-container .receipt .receipt-item .product-delete
+{
+    text-align:left;
+}
 .receipt-container .receipt-divider
 {
     margin:0 2em;
