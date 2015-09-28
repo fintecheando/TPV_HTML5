@@ -57,7 +57,7 @@ function Receipt() {
      */
     this.getTaxes = function() {
         var sub = self.getSubTotal();
-        return sub * 0.0825;
+        return sub * 0.16;
     };
     /**
      * Retrieves the grand total of this Receipt.
