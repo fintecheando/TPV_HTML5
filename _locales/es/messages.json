@@ -8,7 +8,7 @@
         "description": "Start the application in English"
     },
     "startButtonSpanish": {
-        "message": "Presente su tarjeta o Escriba su N&uacute;mero de Empleado/NIP",
+        "message": "Presente su Credencial o Escriba su N&uacute;mero de Empleado",
         "description": "Start the application in Spanish"
     },
     "callAttendent": {
