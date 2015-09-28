@@ -8,7 +8,7 @@
         "description": "Start the application in English"
     },
     "startButtonSpanish": {
-        "message": "Presente su tarjeta o Escriba su N&uacute;mero de Empleado/NIP",
+        "message": "Presente su Credencial o Escriba su N&uacute;mero de Empleado",
         "description": "Start the application in Spanish"
     },
     "callAttendent": {
@@ -28,10 +28,9 @@
         "description": "Button to return to the payment options page"
     },
     "touchToType": {
-        "message": "Toque para Buscar Producto",
+        "message": "Empleado",
         "description": "Placeholder on input boxes that instruct the user to touch to being typing"
-    },
-    
+    },    
     "receiptHeader": {
         "message": "Mi Orden",
         "description": "The header of the receipt items"
@@ -159,11 +158,11 @@
     },
     
     "pageCompleteThanks": {
-        "message": "Gracias por comprar con nosotros!",
+        "message": "¡Gracias y Buen Provecho!",
         "description": "Thank the user for shopping at the store"
     },
     "pageCompleteBags": {
-        "message": "Por favor, retire las bolsas de la zona de embolsado y lleve su recibo.",
+        "message": "Por favor tome su recibo y presentelo en la barra de alimentos.",
         "description": "Instruct the user to remove their bags and take their receipt"
     },
     
