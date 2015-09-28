@@ -158,11 +158,11 @@
     },
     
     "pageCompleteThanks": {
-        "message": "Gracias por comprar con nosotros!",
+        "message": "¡Gracias y Buen Provecho!",
         "description": "Thank the user for shopping at the store"
     },
     "pageCompleteBags": {
-        "message": "Por favor, retire las bolsas de la zona de embolsado y lleve su recibo.",
+        "message": "Por favor tome su recibo y presentelo en la barra de alimentos.",
         "description": "Instruct the user to remove their bags and take their receipt"
     },
     

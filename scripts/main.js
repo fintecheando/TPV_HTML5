@@ -124,28 +124,27 @@ main.initialize = function() {
         flipper.openPage('#page-payment-id-nip');
     });
     
+    
     //Page-Payment
     $('#page-payment').on(flipper.Event.BEFORE_OPEN, function() {
-        swiper.scanning = true;
+        //swiper.scanning = true;
     });
     $('#page-payment').on(flipper.Event.AFTER_CLOSE, function() {
-        swiper.scanning = false;
+        //swiper.scanning = false;
     });
-    $('#page-payment').on(swiper.EVENT, main.paymentSwiper);
-    
+    $('#page-payment').on(swiper.EVENT, main.paymentSwiper);    
     $('#page-payment').on('beforesearch', main.lookupBeforeSearch);
     $('#page-payment').on('aftersearch', main.lookupAfterSearch);
-    $('#page-payment #card-search-query').keyup(main.lookupEmployeeStartProgress);
+    $('#page-payment #card-search-query').keyup(main.paymentRFID);
     
     //Page-Payment ID & NIP
     $('#page-payment-id-nip').on(flipper.Event.BEFORE_OPEN, function() {
-        swiper.scanning = true;
+        swiper.scanning = true;    
     });
     $('#page-payment-id-nip').on(flipper.Event.AFTER_CLOSE, function() {
         swiper.scanning = false;
     });
-    $('#page-payment-id-nip').on(swiper.EVENT, main.paymentSwiper);
-    
+    $('#page-payment-id-nip').on(swiper.EVENT, main.paymentSwiper);    
     //Page-Complete
     $('#page-complete').on(flipper.Event.BEFORE_OPEN, function() {
         document.getElementById('complete-video').play();
@@ -352,26 +351,7 @@ main.productSearch = function(query) {
  *      all products
  * @returns {undefined}
  */
-main.employeeSearch = function(query) {
-    $('#page-payment').trigger('beforesearch');
-    if(typeof query === 'undefined') {
-        //mock delay for loading animation
-        setTimeout(function() {
-            for (var i = 0; i < data.productsArray.length; i++) {
-                var product = data.productsArray[i];
-                var productElement = product.getSearchResult();
-                
-                if (i < 8) {
-                    productElement.addClass('search-result-animation-' + (i+1).toString());
-                }
-                
-                productElement.click(main.lookupItemClicked);
-                $('#page-payment .search-results').append(productElement);
-            }
-            $('#page-payment').trigger('aftersearch');
-        }, 2000);
-    }
-    else {
+main.employeeSearch = function(query) {    
         setTimeout(function() {
             for (var i = 0; i < data.productsArray.length; i++) {
                 var product = data.productsArray[i];
@@ -386,12 +366,12 @@ main.employeeSearch = function(query) {
                     }
 
                     productElement.click(main.lookupItemClicked);
-                    $('#page-lookup .search-results').append(productElement);
+                    $('#page-payment .search-results').append(productElement);
                 }
             }
-            $('#page-lookup').trigger('aftersearch');
+            $('#page-payment').trigger('aftersearch');
         }, 2000);
-    }
+    
 };
 
 /**
@@ -683,7 +663,7 @@ main.lookupFoodUpdateProgress = function(value) {
  * <p>
  * This method resets the progress bar. When the progress bar is finished 
  * (the user has not pressed any keys for a short amount of time), the 
- * user's input will then be sent to search for products.
+ * user's input will then be sent to search for employee.
  * @returns {undefined}
  */
 main.lookupEmployeeStartProgress = function() {
@@ -712,6 +692,7 @@ main.lookupEmployeeUpdateProgress = function(value) {
         clearInterval(main.intervalId);
         progress.attr('value', 0);
         var searchQuery = $('#page-payment #card-search-query').val();
+        
         main.employeeSearch(searchQuery);
     }
 };
@@ -725,8 +706,8 @@ main.lookupEmployeeUpdateProgress = function(value) {
  * @param {Card} card the Card swiped
  * @returns {undefined}
  */
-main.paymentSwiper = function(e, card) {
-    var amount = main.currencyToFloat($('#page-payment .receipt-total .amount').html());
+main.paymentSwiper = function(e, card) {    
+    var amount = main.currencyToFloat($('#page-payment .receipt-total .amount').html());    
     stripe.chargeCard(card, amount, function(response) {
         if (response.success) {
             flipper.openPage('#page-complete');
@@ -735,6 +716,31 @@ main.paymentSwiper = function(e, card) {
             main.showError('There was a problem accepting your card: ' + response.message);
         }
     });
+};
+
+/**
+ * Called whenever a swipe event occurs on the payment page.
+ * <p>
+ * This method will verify the card and process payment, or alert the user 
+ * that there was an error with their payment.
+ * @param {Event} e the swipe event
+ * @param {Card} card the Card swiped
+ * @returns {undefined}
+ */
+main.paymentRFID = function(e, card) {
+    var card = $('#page-payment #card-search-query').val();
+    var amount = main.currencyToFloat($('#page-payment .receipt-total .amount').html());
+    flipper.openPage('#page-complete');
+    /*var empleado = employee.getSearchResult(card);
+    stripe.chargeCard(card, amount, function(response) {
+        if (response.success) {
+            flipper.openPage('#page-complete');
+        }
+        else {
+            main.showError('There was a problem accepting your card: ' + response.message);
+        }
+    });
+    */
 };
 
 /**
