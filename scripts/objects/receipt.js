@@ -72,7 +72,11 @@ function Receipt() {
             }
         }
         self.recieptItems.splice(index, index + 1);
-        $('.receipt-container .receipt #'+productId).empty();
+
+        $('.receipt-container .receipt #'+productId).remove();
+        //Remove is required to call twice to delete the div created in the Payment page
+        //TODO find a best approach
+        $('.receipt-container .receipt #'+productId).remove();
 
     };
 
