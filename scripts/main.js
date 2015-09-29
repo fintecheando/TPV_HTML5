@@ -81,9 +81,11 @@ main.initialize = function() {
         //scanner.scanning = true;
         $('#page-checkout #item-search-query').val('');
         main.foodSearch();
+        $('.product-delete').show();
     });
     $('#page-checkout').on(flipper.Event.AFTER_CLOSE, function() {
         //scanner.scanning = false;
+        $('.product-delete').hide();
     });
     $('#page-checkout').on(scanner.EVENT, main.checkoutScanner);
     $('#page-checkout #lookup-item').click(function() {
